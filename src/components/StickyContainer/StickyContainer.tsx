@@ -21,6 +21,7 @@ export function StickyContainer({
   children,
   targetElementRef,
   position,
+  className,
   openClassName,
   collapsedClassName,
 }: StickyContainerProps) {
@@ -64,11 +65,15 @@ export function StickyContainer({
   return (
     <div
       className={clsx(
-        'fixed rounded-md bg-slate-200 transition-all duration-300',
+        'fixed rounded-md transition-all duration-300',
         !isOpen && 'delay-300',
+        className,
         isOpen
-          ? [openClassName ?? 'size-96', 'overflow-auto']
-          : [collapsedClassName ?? 'size-20', 'overflow-hidden'],
+          ? [
+              openClassName ?? 'h-[50vh] w-[80vw] sm:h-96 sm:w-96',
+              'overflow-auto',
+            ]
+          : [collapsedClassName ?? 'size-20 sm:size-24', 'overflow-hidden'],
       )}
       style={position}
       ref={containerRef}

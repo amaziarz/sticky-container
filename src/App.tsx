@@ -10,7 +10,7 @@ export function App() {
       <p className="text-2xl">Scroll down to test</p>
       <div className="absolute right-0 top-1/3 flex w-full justify-end">
         <div
-          className="mx-4 h-96 w-[48rem] rounded-md bg-gray-500 p-4 sm:mx-16"
+          className="mx-4 h-96 w-[48rem] rounded-md bg-gray-500 p-4 text-slate-100 sm:mx-16"
           ref={targetElementRef}
         >
           target element
@@ -18,12 +18,11 @@ export function App() {
       </div>
       <StickyContainer
         targetElementRef={targetElementRef}
+        className="bg-fuchsia-700 text-slate-100"
         position={{
           bottom: '2rem',
           right: '2rem',
         }}
-        openClassName="bg-slate-200 size-96"
-        collapsedClassName="bg-amber-200 size-20"
       >
         <p className="p-4 text-base">
           In a galaxy far, far away, where stars gleam like diamonds in the
