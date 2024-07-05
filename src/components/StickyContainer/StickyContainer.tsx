@@ -1,4 +1,5 @@
 import {
+  type CSSProperties,
   type ReactNode,
   type RefObject,
   useEffect,
@@ -10,17 +11,23 @@ import { clsx } from 'clsx';
 interface StickyContainerProps {
   children: ReactNode;
   targetElementRef: RefObject<HTMLElement>;
+  position: Partial<Pick<CSSProperties, 'top' | 'bottom' | 'left' | 'right'>>;
+  className?: string;
+  openClassName?: string;
+  collapsedClassName?: string;
 }
 
 export function StickyContainer({
   children,
   targetElementRef,
+  position,
+  openClassName,
+  collapsedClassName,
 }: StickyContainerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log('init');
     if (!targetElementRef.current || !containerRef.current) {
       return;
     }
@@ -50,7 +57,6 @@ export function StickyContainer({
     window.addEventListener('scroll', handleScroll);
 
     return () => {
-      console.log('cleanup');
       window.removeEventListener('scroll', handleScroll);
     };
   }, [targetElementRef]);
@@ -58,10 +64,13 @@ export function StickyContainer({
   return (
     <div
       className={clsx(
-        'fixed bottom-8 right-8 rounded-md bg-slate-200 p-2 transition-all duration-300',
-        isOpen ? 'size-96' : 'size-20',
+        'fixed rounded-md bg-slate-200 transition-all duration-300',
         !isOpen && 'delay-300',
+        isOpen
+          ? [openClassName ?? 'size-96', 'overflow-auto']
+          : [collapsedClassName ?? 'size-20', 'overflow-hidden'],
       )}
+      style={position}
       ref={containerRef}
     >
       <div
