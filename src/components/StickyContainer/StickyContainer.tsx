@@ -10,10 +10,25 @@ import { clsx } from 'clsx';
 
 interface StickyContainerProps {
   children: ReactNode;
+  /**
+   * A reference element that triggers the open state when it overlaps with the container
+   */
   targetElementRef: RefObject<HTMLElement>;
+  /**
+   * Sticky container position relative to the viewport
+   */
   position: Partial<Pick<CSSProperties, 'top' | 'bottom' | 'left' | 'right'>>;
+  /**
+   * Styles applied to both the open and collapsed states
+   */
   className?: string;
+  /**
+   * Styles applied to the open state, can be used to override the size of the open container
+   */
   openClassName?: string;
+  /**
+   * Styles applied to the collapsed state, can be used to override the size of the collapsed container
+   */
   collapsedClassName?: string;
 }
 
